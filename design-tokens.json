@@ -1,0 +1,88 @@
+{
+  "brand": {
+    "name": "Aix en Vue",
+    "shortName": "AEV",
+    "tagline": "Pour et avec les déficients visuels.",
+    "motto": "Parce que voir moins ne signifie pas vivre moins.",
+    "founded": 2024,
+    "legalStatus": "Association Loi 1901 Reconnue d'intérêt général",
+    "siret": "92855251200016",
+    "contact": {
+      "address": "23 boulevard François et Emile Zola, 13100 Aix-en-Provence",
+      "phone": "07 44 99 94 38",
+      "email": "info@aixenvue.fr",
+      "website": "https://www.aixenvue.fr",
+      "socials": {
+        "facebook": "https://www.facebook.com/aix.en.vue/",
+        "instagram": "https://www.instagram.com/aixenvue/",
+        "linkedin": "https://fr.linkedin.com/in/aix-en-vue-aev-9a4986383"
+      }
+    }
+  },
+  "colors": {
+    "lightTheme": {
+      "rouge": { "hex": "#D80000", "rgb": "rgb(216, 0, 0)", "role": "Couleur signature, initiales AEV, accents en italique, CTA principaux" },
+      "noir": { "hex": "#111111", "rgb": "rgb(17, 17, 17)", "role": "Texte principal, grands titres, fonds de contraste" },
+      "papier": { "hex": "#F4F2EB", "rgb": "rgb(244, 242, 235)", "role": "Fond principal (anti-éblouissement façon papier grainé)" },
+      "creme": { "hex": "#FBF8F0", "rgb": "rgb(251, 248, 240)", "role": "Fond clair Hero et sections mises en avant" },
+      "papierFonce": { "hex": "#E8E4D9", "rgb": "rgb(232, 228, 217)", "role": "Fond secondaire, cartes, bordures douces" },
+      "ocre": { "hex": "#C8860A", "rgb": "rgb(200, 134, 10)", "role": "Accent chaud provençal, surtitres (eyebrows) sur fond clair" },
+      "ocreClair": { "hex": "#F0C060", "rgb": "rgb(240, 192, 96)", "role": "Surtitres, chiffres clés et accents chauds sur fond sombre" },
+      "bleu": { "hex": "#1A3A5C", "rgb": "rgb(26, 58, 92)", "role": "Accent froid institutionnel, action Adhérer" },
+      "vert": { "hex": "#5C7A5C", "rgb": "rgb(92, 122, 92)", "role": "Accent nature, plein air et randonnée" },
+      "gris": { "hex": "#333333", "rgb": "rgb(51, 51, 51)", "role": "Texte secondaire haute lisibilité" }
+    },
+    "darkHighContrastTheme": {
+      "noirTexte": { "hex": "#F8F9FA", "rgb": "rgb(248, 249, 250)", "role": "Texte principal blanc pur sur fond noir" },
+      "papierFond": { "hex": "#121212", "rgb": "rgb(18, 18, 18)", "role": "Fond de page noir mat anti-éblouissement" },
+      "papierFonceCarte": { "hex": "#1E1E1E", "rgb": "rgb(30, 30, 30)", "role": "Fond de cartes et conteneurs sombres" },
+      "cremeSurface": { "hex": "#262626", "rgb": "rgb(38, 38, 38)", "role": "Surfaces surélevées et modales" },
+      "grisSecondaire": { "hex": "#E0E0E0", "rgb": "rgb(224, 224, 224)", "role": "Texte secondaire conforme WCAG AAA" },
+      "rougeVif": { "hex": "#FF4D4D", "rgb": "rgb(255, 77, 77)", "role": "Rouge éclairci pour contraster sur fond noir" },
+      "ocreDore": { "hex": "#F5BA42", "rgb": "rgb(245, 186, 66)", "role": "Ocre doré lumineux" }
+    },
+    "pdfPrintOfficial": {
+      "rougeRubis": { "hex": "#C0392B", "rgb": "rgb(192, 57, 43)", "role": "Rouge officiel documents administratifs / Devis / Factures" },
+      "anthracite": { "hex": "#1E1E1E", "rgb": "rgb(30, 30, 30)", "role": "Bandeaux titres documents PDF" }
+    }
+  },
+  "typography": {
+    "googleFontsImport": "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Manrope:wght@300;400;500;600;700;800&display=swap",
+    "families": {
+      "heading": "'Playfair Display', Georgia, serif",
+      "body": "'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+    },
+    "styles": {
+      "posterTitleH1": {
+        "fontFamily": "Playfair Display",
+        "fontWeight": 900,
+        "lineHeight": 1.1,
+        "letterSpacing": "-0.03em"
+      },
+      "sectionTitleH2": {
+        "fontFamily": "Playfair Display",
+        "fontWeight": 900,
+        "lineHeight": 1.15,
+        "letterSpacing": "-0.025em"
+      },
+      "eyebrowLabel": {
+        "fontFamily": "Manrope",
+        "fontWeight": 800,
+        "textTransform": "uppercase",
+        "letterSpacing": "0.2em"
+      },
+      "buttonAndBadge": {
+        "fontFamily": "Manrope",
+        "fontWeight": 800,
+        "textTransform": "uppercase",
+        "letterSpacing": "0.08em"
+      }
+    }
+  },
+  "shapes": {
+    "clipStandard": "polygon(0 0, 100% 0, 98% 100%, 2% 100%)",
+    "clipButton": "polygon(0 0, 100% 0, 97% 100%, 3% 100%)",
+    "clipBadge": "polygon(3% 0, 100% 0, 97% 100%, 0% 100%)",
+    "clipModal": "polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px)"
+  }
+}

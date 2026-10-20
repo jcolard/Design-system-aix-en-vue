@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design System & Charte Graphique — Aix en Vue (AEV)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --noir: #111111;
+      --papier: #F4F2EB;
+      --papier-fonce: #E8E4D9;
+      --creme: #FBF8F0;
+      --rouge: #D80000;
+      --ocre: #C8860A;
+      --ocre-clair: #F0C060;
+      --bleu: #1A3A5C;
+      --vert: #5C7A5C;
+      --gris: #333333;
+      --clip-standard: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+      --clip-btn: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
+      --clip-badge: polygon(3% 0, 100% 0, 97% 100%, 0% 100%);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--papier);
+      color: var(--noir);
+      font-family: 'Manrope', sans-serif;
+      line-height: 1.6;
+      padding-bottom: 5rem;
+    }
+
+    /* Grain papier signature */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+    }
+
+    header.ds-hero {
+      background: #0D0D0D;
+      color: var(--papier);
+      padding: 4.5rem 3rem 4rem;
+      position: relative;
+      border-bottom: 4px solid var(--rouge);
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .eyebrow {
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ocre);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 40px;
+      height: 5px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3Q13 1 26 3Q39 5 52 2' stroke='%23C8860A' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/cover;
+    }
+    .eyebrow.light { color: var(--ocre-clair); }
+    .eyebrow.light::before {
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3Q13 1 26 3Q39 5 52 2' stroke='%23F0C060' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/cover;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.2rem;
+    }
+
+    h2.section-h {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.3rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .accent {
+      position: relative;
+      display: inline-block;
+      color: var(--rouge);
+      font-style: italic;
+    }
+    .accent::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: -4px;
+      right: -4px;
+      height: 12px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 14' preserveAspectRatio='none'%3E%3Cpath d='M4 8Q45 2 90 8Q135 14 176 5' stroke='%23D80000' stroke-width='4.5' fill='none' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E") no-repeat center/100% 100%;
+    }
+
+    section.ds-section {
+      margin-top: 4rem;
+      background: var(--creme);
+      padding: 3rem;
+      border: 1px solid var(--papier-fonce);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    }
+
+    .section-desc {
+      color: var(--gris);
+      margin-bottom: 2.2rem;
+      max-width: 750px;
+    }
+
+    /* Logos Grid */
+    .logo-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .logo-card {
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.4rem;
+      border: 1px solid rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .logo-card.light { background: var(--papier); color: var(--noir); }
+    .logo-card.dark  { background: #0D0D0D; color: #F8F9FA; }
+    .logo-card.white { background: #FFFFFF; color: var(--noir); }
+
+    .nav-logo-demo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.35rem;
+    }
+    .nav-logo-demo img {
+      height: 44px;
+      width: auto;
+      align-self: center;
+      margin-right: 0.5rem;
+    }
+    .nav-logo-demo .red { color: var(--rouge); }
+    .nav-logo-demo .aix { font-size: 2.2rem; }
+    .nav-logo-demo .en  { font-size: 1.65rem; }
+    .nav-logo-demo .vue { font-size: 1.25rem; }
+
+    /* Palette Grid */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .swatch-card {
+      background: white;
+      border: 1px solid rgba(0,0,0,0.08);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .swatch-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+    .swatch-color {
+      height: 115px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 0.6rem;
+      position: relative;
+    }
+    .copy-pill {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 0.25rem 0.55rem;
+      background: rgba(0,0,0,0.65);
+      color: white;
+      border-radius: 3px;
+      letter-spacing: 0.06em;
+    }
+    .swatch-body {
+      padding: 1.1rem;
+    }
+    .swatch-name {
+      font-weight: 800;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+    .swatch-var {
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: var(--rouge);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .swatch-codes {
+      font-size: 0.8rem;
+      color: #555;
+      line-height: 1.5;
+    }
+    .swatch-usage {
+      margin-top: 0.6rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid #eee;
+      font-size: 0.78rem;
+      color: #444;
+    }
+
+    /* Typography Table */
+    .type-row {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--papier-fonce);
+      align-items: center;
+    }
+    .type-meta {
+      font-size: 0.85rem;
+      color: var(--gris);
+    }
+    .type-meta strong {
+      display: block;
+      color: var(--noir);
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    .type-meta code {
+      background: var(--papier-fonce);
+      padding: 0.15rem 0.4rem;
+      font-size: 0.78rem;
+    }
+
+    /* Components */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--rouge);
+      color: white;
+      text-decoration: none;
+      padding: 0.9rem 2.2rem;
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      clip-path: var(--clip-btn);
+      box-shadow: 0 4px 15px rgba(216, 0, 0, 0.25);
+    }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: transparent;
+      color: var(--noir);
+      text-decoration: none;
+      padding: 0.9rem 2.2rem;
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 2px solid var(--noir);
+      clip-path: var(--clip-btn);
+    }
+    .hero-badge-demo {
+      display: inline-block;
+      background: var(--rouge);
+      color: white;
+      padding: 1.1rem 1.8rem;
+      clip-path: var(--clip-badge);
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 700;
+      box-shadow: 0 8px 30px rgba(216,0,0,.3);
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--noir);
+      color: white;
+      padding: 0.9rem 1.5rem;
+      font-weight: 800;
+      font-size: 0.9rem;
+      border-left: 4px solid var(--rouge);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      opacity: 0;
+      transform: translateY(15px);
+      transition: all 0.25s;
+      z-index: 10000;
+      pointer-events: none;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .type-row { grid-template-columns: 1fr; gap: 0.8rem; }
+      section.ds-section { padding: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="ds-hero">
+    <div class="container">
+      <span class="eyebrow light">Kit de Marque & Design System Officiel</span>
+      <h1>Identité Visuelle <span class="accent">Aix en Vue</span></h1>
+      <p style="max-width: 680px; color: #CCCCCC; font-size: 1.1rem; margin-top: 1rem;">
+        Référentiel complet des couleurs, typographies, logos, formes signatures et gabarits pour la création de vos prochaines <strong>affiches, flyers, kakémonos et supports de communication</strong>.
+      </p>
+      <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="templates/MODELE_AFFICHE_A4_AEV.html" class="btn-primary">Ouvrir le Modèle d'Affiche A4 (Prêt à imprimer) →</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- 1. LOGOS & SIGNATURES -->
+    <section class="ds-section">
+      <span class="eyebrow">01 · Logotype & Signature</span>
+      <h2 class="section-h">Le Logo <em style="color:var(--rouge)">Aix En Vue</em></h2>
+      <p class="section-desc">
+        La signature combine l'œil symbolique d'Aix en Vue et le bloc typographique en <strong>Playfair Display Black (900)</strong> avec effet d'échelle décroissante (clin d'œil aux tableaux d'acuité visuelle) et initiales en Rouge Signature <code>#D80000</code>.
+      </p>
+
+      <div class="logo-showcase">
+        <div class="logo-card light">
+          <div class="nav-logo-demo">
+            <img src="assets/logos/oeil_logo.webp" alt="Logo Oeil AEV" />
+            <span class="aix"><span class="red">A</span>ix</span>
+            <span class="en"><span class="red">E</span>n</span>
+            <span class="vue"><span class="red">V</span>ue</span>
+          </div>
+          <small style="color:#555; font-weight:700;">Version En-tête sur Fond Papier (#F4F2EB)</small>
+        </div>
+
+        <div class="logo-card dark">
+          <div class="nav-logo-demo">
+            <img src="assets/logos/oeil_logo.webp" alt="Logo Oeil AEV" />
+            <span class="aix"><span class="red">A</span>ix</span>
+            <span class="en"><span class="red">E</span>n</span>
+            <span class="vue"><span class="red">V</span>ue</span>
+          </div>
+          <small style="color:#AAA; font-weight:700;">Version Exposition sur Fond Noir (#0D0D0D)</small>
+        </div>
+
+        <div class="logo-card white">
+          <img src="assets/logos/logo-aev.png" alt="Logo Officiel Complet AEV" style="max-height: 90px; width: auto;" />
+          <small style="color:#555; font-weight:700;">Logo Complet Administratif (assets/logos/logo-aev.png)</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PALETTE DE COULEURS -->
+    <section class="ds-section">
+      <span class="eyebrow">02 · Palette Chromatique</span>
+      <h2 class="section-h">Couleurs <em style="color:var(--rouge)">Cézanne & Provence</em></h2>
+      <p class="section-desc">
+        Cliquez sur n'importe quelle carte de couleur pour copier son code HEX dans votre presse-papiers. Cette palette garantit à la fois une chaleur éditoriale aixoise et des contrastes élevés (WCAG AAA) pour les personnes malvoyantes.
+      </p>
+
+      <div class="swatch-grid">
+        <div class="swatch-card" onclick="copyHex('#D80000')">
+          <div class="swatch-color" style="background:#D80000;"><span class="copy-pill">Copier #D80000</span></div>
+          <div class="swatch-body">
+            <div class="swatch-name">Rouge Signature</div>
+            <span class="swatch-var">--rouge</span>
+            <div class="swatch-codes">HEX : <strong>#D80000</strong><br>RVB : 216, 0, 0</div>
+            <div class="swatch-usage">Initiales AEV, mots-clés en italique, boutons, badges et coups de pinceau.</div>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyHex('#111111')">
+          <div class="swatch-color" style="background:#111111;"><span class="copy-pill">Copier #111111</span></div>
+          <div class="swatch-body">
+            <div class="swatch-name">Noir Encre</div>
+            <span class="swatch-var">--noir</span>
+            <div class="swatch-codes">HEX : <strong>#111111</strong><br>RVB : 17, 17, 17</div>
+            <div class="swatch-usage">Grands titres, textes principaux, bandeaux sombres haute lisibilité.</div>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyHex('#F4F2EB')">
+          <div class="swatch-color" style="background:#F4F2EB; border-bottom:1px solid #ddd;"><span class="copy-pill">Copier #F4F2EB</span></div>
+          <div class="swatch-body">
+            <div class="swatch-name">Papier Cézanne</div>
+            <span class="swatch-var">--papier</span>
+            <div class="swatch-codes">HEX : <strong>#F4F2EB</strong><br>RVB : 244, 242, 235</div>
+            <div class="swatch-usage">Fond principal des affiches claires (évite l'éblouissement du blanc pur).</div>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyHex('#FBF8F0')">
+          <div class="swatch-color" style="background:#FBF8F0; border-bottom:1px solid #ddd;"><span class="copy-pill">Copier #FBF8F0</span></div>
+          <div class="swatch-body">
+            <div class="swatch-name">Crème Lumineux</div>
+            <span class="swatch-var">--creme</span>
+            <div class="swatch-codes">HEX : <strong>#FBF8F0</strong><br>RVB : 251, 248, 240</div>
+            <div class="swatch-usage">Fonds de sections mises en avant et encarts d'information.</div>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyHex('#E8E4D9')">
+          <div class="swatch-color" style="background:#E8E4D9;"><span class="copy-pill">Copier #E8E4D9</span></div>
+          <div class="swatch-body">
+            <div class="swatch-name">Papier Foncé / Sable</div>
+            <span class="swatch-var">--papier-fonce</span>
+            <div class="swatch-codes">HEX : <strong>#E8E4D9</strong><br>RVB : 232, 228, 217</div>
+            <div class="swatch-usage">Blocs secondaires, filets de séparation et bordures de cartes.</div>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyHex('#C8860A')">
+          <div class="swatch-color" style="background:#C8860A;"><span class="copy-pill">Copier #C8860A</span></div>
+          <div class="swatch-body">
+            <div class="swatch-name">Ocre de Provence</div>
+            <span class="swatch-var">--ocre</span>
+            <div class="swatch-codes">HEX : <strong>#C8860A</strong><br>RVB : 200, 134, 10</div>
+            <div class="swatch-usage">Surtitres (eyebrows), étiquettes de catégories et tirets pinceau sur fond clair.</div>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyHex('#F0C060')">
+          <div class="swatch-color" style="background:#F0C060;"><span class="copy-pill">Copier #F0C060</span></div>
+          <div class="swatch-body">
+            <div class="swatch-name">Ocre Clair / Or</div>
+            <span class="swatch-var">--ocre-clair</span>
+            <div class="swatch-codes">HEX : <strong>#F0C060</strong><br>RVB : 240, 192, 96</div>
+            <div class="swatch-usage">Surtitres, grands chiffres et accents lumineux sur fond noir (#111111).</div>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyHex('#1A3A5C')">
+          <div class="swatch-color" style="background:#1A3A5C;"><span class="copy-pill">Copier #1A3A5C</span></div>
+          <div class="swatch-body">
+            <div class="swatch-name">Bleu Profond</div>
+            <span class="swatch-var">--bleu</span>
+            <div class="swatch-codes">HEX : <strong>#1A3A5C</strong><br>RVB : 26, 58, 92</div>
+            <div class="swatch-usage">Accent institutionnel froid, action « Adhérer », repères secondaires.</div>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyHex('#5C7A5C')">
+          <div class="swatch-color" style="background:#5C7A5C;"><span class="copy-pill">Copier #5C7A5C</span></div>
+          <div class="swatch-body">
+            <div class="swatch-name">Vert Sauge / Nature</div>
+            <span class="swatch-var">--vert</span>
+            <div class="swatch-codes">HEX : <strong>#5C7A5C</strong><br>RVB : 92, 122, 92</div>
+            <div class="swatch-usage">Activités nature, randonnées Sainte-Victoire, jardinage.</div>
+          </div>
+        </div>
+
+        <div class="swatch-card" onclick="copyHex('#333333')">
+          <div class="swatch-color" style="background:#333333;"><span class="copy-pill">Copier #333333</span></div>
+          <div class="swatch-body">
+            <div class="swatch-name">Gris Anthracite</div>
+            <span class="swatch-var">--gris</span>
+            <div class="swatch-codes">HEX : <strong>#333333</strong><br>RVB : 51, 51, 51</div>
+            <div class="swatch-usage">Paragraphes descriptifs et sous-titres sur fond papier.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. TYPOGRAPHIE -->
+    <section class="ds-section">
+      <span class="eyebrow">03 · Système Typographique</span>
+      <h2 class="section-h">Polices & <em style="color:var(--rouge)">Hiérarchie</em></h2>
+      <p class="section-desc">
+        Association de <strong>Playfair Display</strong> (titres expressifs et culturels) et de <strong>Manrope</strong> (linéale géométrique ultra-lisible pour les informations pratiques, dates, lieux et corps de texte).
+      </p>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <strong>Titre d'Affiche (H1)</strong>
+          Police : <code>Playfair Display Black (900)</code><br>
+          Interlignage : <code>1.1</code> · Approche : <code>-0.03em</code><br>
+          Mot-clé : <code>Italic + #D80000 + Pinceau</code>
+        </div>
+        <div style="font-family:'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight:900; line-height:1.1; letter-spacing:-0.03em;">
+          Pour et avec les <span class="accent">déficients</span> visuels.
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <strong>Sous-titre / Section (H2)</strong>
+          Police : <code>Playfair Display Black (900)</code><br>
+          Interlignage : <code>1.15</code> · Approche : <code>-0.025em</code>
+        </div>
+        <div style="font-family:'Playfair Display', serif; font-size: 2.2rem; font-weight:900; line-height:1.15;">
+          Ils voient Cézanne <em style="color:var(--rouge); font-style:italic;">autrement</em>
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <strong>Surtitre / Eyebrow</strong>
+          Police : <code>Manrope ExtraBold (800)</code><br>
+          Casse : <code>MAJUSCULES</code> · Approche : <code>0.2em</code><br>
+          Couleur : <code>#C8860A</code> (ou <code>#F0C060</code>)
+        </div>
+        <div>
+          <span class="eyebrow" style="margin-bottom:0;">Aix-en-Provence · Exposition Photographique</span>
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <strong>Texte Courant / Infos</strong>
+          Police : <code>Manrope Medium (500) / Bold (700)</code><br>
+          Interlignage : <code>1.65</code> à <code>1.75</code>
+        </div>
+        <div style="font-size: 1.08rem; color: var(--gris); max-width: 620px;">
+          Aix en Vue réunit malvoyants, non-voyants et bénévoles autour d'activités culturelles, sportives et créatives. <strong style="color:var(--noir);">Parce que voir moins ne signifie pas vivre moins.</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. MARQUEURS GRAPHIQUES & COMPOSANTS -->
+    <section class="ds-section">
+      <span class="eyebrow">04 · Signatures Visuelles</span>
+      <h2 class="section-h">Boutons, Badges & <em style="color:var(--rouge)">Découpes</em></h2>
+      <p class="section-desc">
+        Sur vos affiches, utilisez ces formes trapézoïdales légèrement inclinées (<code>clip-path</code>) et les traits de pinceau vectoriels (présents dans le sous-dossier <code>assets/svg-elements/</code>) pour encadrer la date, le tarif ou l'appel à l'action.
+      </p>
+
+      <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:center; margin-bottom: 2.5rem;">
+        <span class="btn-primary">Entrée Libre & Gratuite</span>
+        <span class="btn-outline">Inscription : 07 44 99 94 38</span>
+        <span class="hero-badge-demo">Exposition accessible en audiodescription</span>
+      </div>
+
+      <div style="background: white; padding: 2rem; border-left: 4px solid var(--rouge); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <h4 style="font-family:'Playfair Display', serif; font-size: 1.35rem; margin-bottom: 0.5rem;">Encart d'information avec bordure franche Rouge</h4>
+        <p style="color: var(--gris); font-size: 0.95rem;">
+          Idéal en bas d'affiche pour mettre en valeur le lieu exact, les horaires d'ouverture, les accès PMR/malvoyants et les coordonnées de contact sans surcharger la composition.
+        </p>
+      </div>
+    </section>
+
+    <!-- 5. BANDEAU PARTENAIRES -->
+    <section class="ds-section" style="text-align:center;">
+      <span class="eyebrow">05 · Pied d'Affiche Institutionnel</span>
+      <h2 class="section-h">Bandeau des <em style="color:var(--rouge)">Partenaires</em></h2>
+      <p class="section-desc" style="margin-left:auto; margin-right:auto;">
+        Fichier disponible dans <code>assets/logos/nos_partenaires_bandeau.webp</code> pour intégration directe en pied d'affiche officielle.
+      </p>
+      <div style="background:white; padding: 1.5rem; border:1px solid var(--papier-fonce);">
+        <img src="assets/logos/nos_partenaires_bandeau.webp" alt="Partenaires officiels Aix en Vue" style="max-width:100%; height:auto;" />
+      </div>
+    </section>
+
+  </main>
+
+  <div id="toast">Code couleur copié !</div>
+
+  <script>
+    function copyHex(hex) {
+      navigator.clipboard.writeText(hex);
+      const t = document.getElementById('toast');
+      t.textContent = 'Couleur ' + hex + ' copiée dans le presse-papiers !';
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+  </script>
+</body>
+</html>

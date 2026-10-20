@@ -1,0 +1,107 @@
+/* ==========================================================================
+   AIX EN VUE (AEV) — DESIGN TOKENS & CLASSES UTILITAIRES POUR AFFICHES / WEB
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Palette Principale (Fond Papier / Provence / Cézanne) */
+  --aev-noir: #111111;
+  --aev-papier: #F4F2EB;
+  --aev-papier-fonce: #E8E4D9;
+  --aev-creme: #FBF8F0;
+  --aev-rouge: #D80000;
+  --aev-ocre: #C8860A;
+  --aev-ocre-clair: #F0C060;
+  --aev-bleu: #1A3A5C;
+  --aev-vert: #5C7A5C;
+  --aev-gris: #333333;
+
+  /* Typographies */
+  --aev-font-serif: 'Playfair Display', Georgia, serif;
+  --aev-font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Formes et découpes géométriques signatures */
+  --aev-clip-card: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+  --aev-clip-btn: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
+  --aev-clip-badge: polygon(3% 0, 100% 0, 97% 100%, 0% 100%);
+  --aev-clip-chamfer: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+}
+
+/* Mode Sombre / Exposition Haute Lisibilité */
+[data-theme="dark"], .aev-theme-dark {
+  --aev-noir: #F8F9FA;
+  --aev-papier: #121212;
+  --aev-papier-fonce: #1E1E1E;
+  --aev-creme: #262626;
+  --aev-gris: #E0E0E0;
+  --aev-rouge: #FF4D4D;
+  --aev-ocre: #F5BA42;
+  --aev-ocre-clair: #FDE047;
+  --aev-bleu: #60A5FA;
+  --aev-vert: #4ADE80;
+}
+
+/* Logo Typographique AEV */
+.aev-logo-lockup {
+  font-family: var(--aev-font-serif);
+  font-weight: 900;
+  color: var(--aev-noir);
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+}
+.aev-logo-lockup .red-letter { color: #D80000; }
+.aev-logo-lockup .logo-aix { font-size: 1.5em; }
+.aev-logo-lockup .logo-en  { font-size: 1.15em; }
+.aev-logo-lockup .logo-vue { font-size: 0.9em; }
+
+/* Surtitre avec tiret coup de pinceau */
+.aev-eyebrow {
+  font-family: var(--aev-font-sans);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--aev-ocre);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.aev-eyebrow::before {
+  content: '';
+  width: 42px;
+  height: 5px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3Q13 1 26 3Q39 5 52 2' stroke='%23C8860A' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/cover;
+}
+
+/* Mot-clé accentué au pinceau rouge */
+.aev-accent {
+  position: relative;
+  display: inline-block;
+  color: #D80000;
+  font-style: italic;
+}
+.aev-accent::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: -4px;
+  right: -4px;
+  height: 12px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 14' preserveAspectRatio='none'%3E%3Cpath d='M4 8Q45 2 90 8Q135 14 176 5' stroke='%23D80000' stroke-width='4.5' fill='none' stroke-linecap='round' opacity='.65'/%3E%3C/svg%3E") no-repeat center/100% 100%;
+}
+
+/* Badge trapézoïdal signature */
+.aev-badge {
+  display: inline-block;
+  background: #D80000;
+  color: #FFFFFF;
+  padding: 0.8rem 1.5rem;
+  clip-path: var(--aev-clip-badge);
+  font-family: var(--aev-font-serif);
+  font-style: italic;
+  font-weight: 700;
+  box-shadow: 0 8px 25px rgba(216, 0, 0, 0.3);
+}

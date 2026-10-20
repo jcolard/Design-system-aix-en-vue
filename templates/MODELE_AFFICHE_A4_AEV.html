@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gabarit d'Affiche A4 Officiel — Aix en Vue (AEV)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --noir: #111111;
+      --papier: #F4F2EB;
+      --papier-fonce: #E8E4D9;
+      --creme: #FBF8F0;
+      --rouge: #D80000;
+      --ocre: #C8860A;
+      --ocre-clair: #F0C060;
+      --bleu: #1A3A5C;
+      --vert: #5C7A5C;
+      --gris: #333333;
+      --clip-btn: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
+      --clip-badge: polygon(3% 0, 100% 0, 97% 100%, 0% 100%);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #2B2B2B;
+      font-family: 'Manrope', sans-serif;
+      color: var(--noir);
+      padding: 2rem 1rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Barre d'outils (masquée à l'impression) */
+    .toolbar {
+      background: #111111;
+      color: white;
+      padding: 1rem 1.8rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      border-bottom: 3px solid var(--rouge);
+      max-width: 210mm;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .toolbar-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .toolbar-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+    }
+    .toolbar-sub {
+      font-size: 0.78rem;
+      color: #BBBBBB;
+    }
+    .toolbar-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .tool-btn {
+      background: #262626;
+      color: white;
+      border: 1px solid #444;
+      padding: 0.55rem 1rem;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 800;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tool-btn:hover { background: #383838; }
+    .tool-btn.primary {
+      background: var(--rouge);
+      border-color: var(--rouge);
+    }
+    .tool-btn.primary:hover {
+      background: #b00000;
+    }
+
+    /* FEUILLE A4 (210mm x 297mm) */
+    .poster-a4 {
+      width: 210mm;
+      height: 297mm;
+      background: var(--papier);
+      color: var(--noir);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.55);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 14mm 16mm 12mm;
+    }
+
+    /* Texture grain papier sur l'affiche */
+    .poster-a4::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.45;
+      background-image: url("../assets/svg-elements/texture-grain-papier.svg");
+    }
+
+    /* Liseré supérieur Rouge Signature */
+    .poster-top-stripe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5mm;
+      background: var(--rouge);
+      z-index: 5;
+    }
+
+    /* Thème Sombre (Exposition / Contraste inversé) */
+    .poster-a4.theme-dark {
+      background: #0D0D0D;
+      color: #F8F9FA;
+    }
+    .poster-a4.theme-dark::before {
+      opacity: 0.12;
+    }
+
+    .poster-layer {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* EN-TÊTE D'AFFICHE */
+    .poster-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 4.5mm;
+      margin-top: 2mm;
+      position: relative;
+    }
+    .poster-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: url("../assets/svg-elements/separator-wave-rouge.svg") no-repeat center/cover;
+    }
+
+    .brand-lockup {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.3rem;
+    }
+    .brand-lockup img {
+      height: 11mm;
+      width: auto;
+      align-self: center;
+      margin-right: 2.5mm;
+    }
+    .brand-lockup .red { color: var(--rouge); }
+    .brand-lockup .aix { font-size: 22pt; }
+    .brand-lockup .en  { font-size: 16.5pt; }
+    .brand-lockup .vue { font-size: 13pt; }
+
+    .header-tagline {
+      font-size: 8.5pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--ocre);
+      text-align: right;
+    }
+    .theme-dark .header-tagline {
+      color: var(--ocre-clair);
+    }
+
+    /* CORPS PRINCIPAL & TITRE */
+    .poster-hero {
+      margin-top: 6mm;
+    }
+
+    .poster-eyebrow {
+      font-size: 9.5pt;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ocre);
+      display: inline-flex;
+      align-items: center;
+      gap: 3mm;
+      margin-bottom: 3.5mm;
+    }
+    .poster-eyebrow::before {
+      content: '';
+      width: 14mm;
+      height: 1.5mm;
+      background: url("../assets/svg-elements/brush-dash-ocre.svg") no-repeat center/cover;
+    }
+    .theme-dark .poster-eyebrow {
+      color: var(--ocre-clair);
+    }
+    .theme-dark .poster-eyebrow::before {
+      background: url("../assets/svg-elements/brush-dash-ocre-clair.svg") no-repeat center/cover;
+    }
+
+    .poster-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 38pt;
+      font-weight: 900;
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      margin-bottom: 4.5mm;
+    }
+
+    .poster-title .accent {
+      position: relative;
+      display: inline-block;
+      color: var(--rouge);
+      font-style: italic;
+    }
+    .poster-title .accent::after {
+      content: '';
+      position: absolute;
+      bottom: -2mm;
+      left: -1mm;
+      right: -1mm;
+      height: 4mm;
+      background: url("../assets/svg-elements/brush-underline-rouge.svg") no-repeat center/100% 100%;
+    }
+
+    .poster-lead {
+      font-size: 12pt;
+      font-weight: 500;
+      line-height: 1.55;
+      color: var(--gris);
+      max-width: 165mm;
+    }
+    .theme-dark .poster-lead {
+      color: #E0E0E0;
+    }
+
+    /* VISUEL CENTRAL + BADGE SIGNATURE */
+    .poster-visual-wrap {
+      position: relative;
+      margin: 6mm 0 7mm;
+    }
+    .poster-image-frame {
+      width: 100%;
+      height: 92mm;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.12);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      background: #1E1E1E;
+    }
+    .theme-dark .poster-image-frame {
+      border-color: rgba(255,255,255,0.2);
+    }
+    .poster-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .poster-floating-badge {
+      position: absolute;
+      bottom: -4.5mm;
+      right: 4mm;
+      background: var(--rouge);
+      color: white;
+      padding: 3.5mm 6.5mm;
+      clip-path: var(--clip-badge);
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 12.5pt;
+      font-style: italic;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(216,0,0,0.35);
+    }
+
+    /* GRILLE D'INFORMATIONS PRATIQUES (DATE / LIEU / ACCÈS) */
+    .poster-details-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 6mm;
+      align-items: stretch;
+      margin-bottom: 5mm;
+    }
+
+    .info-card {
+      background: var(--creme);
+      border-left: 1.5mm solid var(--rouge);
+      padding: 5mm 6mm;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2.5mm;
+    }
+    .theme-dark .info-card {
+      background: #1A1A1A;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-left: 1.5mm solid var(--rouge);
+    }
+
+    .info-date {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 18pt;
+      font-weight: 900;
+      color: var(--rouge);
+      line-height: 1.15;
+    }
+    .theme-dark .info-date {
+      color: var(--ocre-clair);
+    }
+
+    .info-time-loc {
+      font-size: 11.5pt;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .info-sub {
+      font-size: 9.5pt;
+      color: var(--gris);
+      font-weight: 600;
+    }
+    .theme-dark .info-sub {
+      color: #CCCCCC;
+    }
+
+    .cta-box {
+      background: var(--noir);
+      color: white;
+      padding: 5mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+    }
+    .theme-dark .cta-box {
+      background: #1E1E1E;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .cta-tag {
+      font-size: 8pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--ocre-clair);
+    }
+    .cta-phone {
+      font-size: 15pt;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      color: white;
+      margin: 1mm 0;
+    }
+    .cta-web {
+      display: inline-block;
+      background: var(--rouge);
+      color: white;
+      font-weight: 800;
+      font-size: 9.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2mm 4mm;
+      text-align: center;
+      clip-path: var(--clip-btn);
+    }
+
+    /* PIED D'AFFICHE & PARTENAIRES */
+    .poster-footer {
+      border-top: 1px solid rgba(0,0,0,0.12);
+      padding-top: 3.5mm;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4mm;
+    }
+    .theme-dark .poster-footer {
+      border-top-color: rgba(255,255,255,0.15);
+    }
+
+    .footer-partners-wrap {
+      background: white;
+      padding: 1.5mm 3mm;
+      border-radius: 3px;
+      max-width: 115mm;
+    }
+    .footer-partners-wrap img {
+      max-height: 11mm;
+      width: auto;
+      display: block;
+    }
+
+    .footer-legal {
+      font-size: 7.5pt;
+      text-align: right;
+      color: var(--gris);
+      line-height: 1.45;
+    }
+    .theme-dark .footer-legal {
+      color: #BBBBBB;
+    }
+    .footer-legal strong {
+      color: var(--noir);
+    }
+    .theme-dark .footer-legal strong {
+      color: white;
+    }
+
+    /* Mise en évidence discrète au survol des textes modifiables */
+    [contenteditable="true"]:hover {
+      outline: 1px dashed var(--rouge);
+      outline-offset: 3px;
+      cursor: text;
+    }
+    [contenteditable="true"]:focus {
+      outline: 2px solid var(--rouge);
+      outline-offset: 4px;
+      background: rgba(216, 0, 0, 0.04);
+    }
+
+    /* IMPRESSION EXACTE A4 SANS MARGES */
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+        margin: 0;
+      }
+      .toolbar {
+        display: none !important;
+      }
+      .poster-a4 {
+        box-shadow: none;
+        width: 210mm;
+        height: 297mm;
+        page-break-after: always;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRE DE CONTRÔLE (Non imprimée) -->
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <span class="toolbar-title">🎨 Gabarit d'Affiche A4 Interactif — Aix en Vue</span>
+      <span class="toolbar-sub">Cliquez sur n'importe quel texte de l'affiche pour le modifier directement, puis exportez en PDF !</span>
+    </div>
+    <div class="toolbar-actions">
+      <button class="tool-btn" onclick="togglePosterTheme()">Basculer Fond Papier / Fond Noir</button>
+      <button class="tool-btn" onclick="switchPhoto()">Changer la photo d'exemple</button>
+      <button class="tool-btn primary" onclick="window.print()">🖨️ Imprimer / Enregistrer en PDF</button>
+    </div>
+  </div>
+
+  <!-- AFFICHE A4 -->
+  <article class="poster-a4" id="poster">
+    <div class="poster-top-stripe"></div>
+
+    <!-- 1. EN-TÊTE -->
+    <header class="poster-header poster-layer">
+      <div class="brand-lockup">
+        <img src="../assets/logos/oeil_logo.webp" alt="Logo Aix en Vue" />
+        <span class="aix"><span class="red">A</span>ix</span>
+        <span class="en"><span class="red">E</span>n</span>
+        <span class="vue"><span class="red">V</span>ue</span>
+      </div>
+      <div class="header-tagline" contenteditable="true">
+        Pour et avec les déficients visuels<br>
+        <span style="font-size:7.5pt; opacity:0.85;">Aix-en-Provence · Association Loi 1901</span>
+      </div>
+    </header>
+
+    <!-- 2. TITRE & ACCROCHE -->
+    <section class="poster-hero poster-layer">
+      <div class="poster-eyebrow" contenteditable="true">
+        Exposition & Rencontre Sensorielle
+      </div>
+      <h1 class="poster-title" contenteditable="true">
+        Aix au-delà<br>du <span class="accent">regard</span>.
+      </h1>
+      <p class="poster-lead" contenteditable="true">
+        Découvrez la ville d'Aix-en-Provence à travers l'objectif et la sensibilité de photographes malvoyants et non-voyants. <strong>Parce que voir moins ne signifie pas vivre moins.</strong>
+      </p>
+    </section>
+
+    <!-- 3. VISUEL CENTRAL -->
+    <section class="poster-visual-wrap poster-layer">
+      <div class="poster-image-frame">
+        <img id="posterImg" src="../assets/photos/cezanne_oeuvres.webp" alt="Visuel principal de l'affiche" />
+      </div>
+      <div class="poster-floating-badge" contenteditable="true">
+        Entrée libre · Visite audiodécrite & tactile
+      </div>
+    </section>
+
+    <!-- 4. INFORMATIONS PRATIQUES (DATE, LIEU, CONTACT) -->
+    <section class="poster-details-grid poster-layer">
+      <div class="info-card">
+        <div class="info-date" contenteditable="true">
+          Samedi 14 Novembre 2026
+        </div>
+        <div class="info-time-loc" contenteditable="true">
+          De 10h00 à 18h30 · Galerie de la Manufacture<br>
+          8–10 rue des Allumettes, Aix-en-Provence
+        </div>
+        <div class="info-sub" contenteditable="true">
+          Vernissage convivial à 11h30 en présence des artistes et des bénévoles. Accès PMR & accompagnement assuré.
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <div>
+          <span class="cta-tag" contenteditable="true">Renseignements & Inscriptions</span>
+          <div class="cta-phone" contenteditable="true">07 44 99 94 38</div>
+          <div style="font-size: 9.5pt; color: #DDDDDD; margin-bottom: 3mm;" contenteditable="true">
+            info@aixenvue.fr
+          </div>
+        </div>
+        <div class="cta-web" contenteditable="true">
+          www.aixenvue.fr
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. PIED D'AFFICHE & PARTENAIRES -->
+    <footer class="poster-footer poster-layer">
+      <div class="footer-partners-wrap">
+        <img src="../assets/logos/nos_partenaires_bandeau.webp" alt="Partenaires officiels Aix en Vue" />
+      </div>
+      <div class="footer-legal" contenteditable="true">
+        <strong>Association Aix en Vue</strong> · 23 bd François et Émile Zola, 13100 Aix-en-Provence<br>
+        SIRET : 928 552 512 00016 · Ne pas jeter sur la voie publique
+      </div>
+    </footer>
+  </article>
+
+  <script>
+    const photos = [
+      "../assets/photos/cezanne_oeuvres.webp",
+      "../assets/photos/atelier_peinture.webp"
+    ];
+    let photoIdx = 0;
+
+    function togglePosterTheme() {
+      document.getElementById('poster').classList.toggle('theme-dark');
+    }
+
+    function switchPhoto() {
+      photoIdx = (photoIdx + 1) % photos.length;
+      document.getElementById('posterImg').src = photos[photoIdx];
+    }
+  </script>
+</body>
+</html>
